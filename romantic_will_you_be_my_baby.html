@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Will You Be My Baby? ❤️</title>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;font-family:Arial,sans-serif}
+body{
+display:flex;justify-content:center;align-items:center;
+background:linear-gradient(135deg,#ff1744,#ff5f9e,#ffc1d6);
+}
+.card{
+position:relative;z-index:2;
+background:rgba(255,255,255,.18);
+backdrop-filter:blur(8px);
+padding:40px;border-radius:24px;text-align:center;
+box-shadow:0 12px 30px rgba(0,0,0,.25)
+}
+h1{color:#fff;font-size:3rem}
+button{
+padding:15px 34px;border:none;border-radius:12px;
+font-size:22px;font-weight:bold;cursor:pointer;
+transition:.25s;
+}
+#yes{background:#ff2d75;color:#fff}
+#no{background:#b00020;color:#fff;position:absolute}
+.heart{
+position:absolute;color:#ffb6c1;
+animation:float 8s linear infinite;
+user-select:none
+}
+@keyframes float{
+0%{transform:translateY(110vh) scale(.7);opacity:0}
+20%{opacity:1}
+100%{transform:translateY(-15vh) scale(1.4);opacity:0}
+}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>Will you be my baby? ❤️</h1>
+<button id="yes">Yes 💖</button>
+<button id="no">No 💔</button>
+</div>
+<script>
+const no=document.getElementById("no");
+const yes=document.getElementById("yes");
+let scale=1;
+
+function moveNo(){
+ const x=Math.random()*(window.innerWidth-no.offsetWidth);
+ const y=Math.random()*(window.innerHeight-no.offsetHeight);
+ no.style.left=x+"px";
+ no.style.top=y+"px";
+ scale+=0.08;
+ yes.style.transform=`scale(${scale})`;
+}
+no.addEventListener("mouseover",moveNo);
+no.addEventListener("touchstart",e=>{e.preventDefault();moveNo();});
+no.addEventListener("click",e=>{e.preventDefault();moveNo();});
+
+function confetti(){
+ for(let i=0;i<120;i++){
+   const s=document.createElement("div");
+   s.textContent=["❤️","💖","💕","🌹","✨"][Math.floor(Math.random()*5)];
+   s.style.position="fixed";
+   s.style.left=Math.random()*100+"vw";
+   s.style.top="-10px";
+   s.style.fontSize=(18+Math.random()*28)+"px";
+   s.style.transition="transform 3s linear, opacity 3s";
+   document.body.appendChild(s);
+   setTimeout(()=>{
+      s.style.transform=`translateY(${window.innerHeight+50}px) rotate(${720*Math.random()}deg)`;
+      s.style.opacity=0;
+   },10);
+   setTimeout(()=>s.remove(),3200);
+ }
+}
+yes.onclick=()=>{
+ confetti();
+ document.body.innerHTML=`
+ <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%;color:white;text-align:center;background:linear-gradient(135deg,#ff1744,#ff5f9e,#ffc1d6)">
+ <div style="font-size:90px">🥰❤️</div>
+ <h1 style="font-size:64px;margin:10px">Yaaay!!</h1>
+ <h2>You just made me the happiest! 💖🌹</h2>
+ <p style="font-size:24px">Forever starts with a YES. ✨</p>
+ </div>`;
+};
+
+setInterval(()=>{
+ const h=document.createElement("div");
+ h.className="heart";
+ h.textContent="❤";
+ h.style.left=Math.random()*100+"vw";
+ h.style.fontSize=(14+Math.random()*24)+"px";
+ h.style.animationDuration=(5+Math.random()*5)+"s";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),10000);
+},250);
+</script>
+</body>
+</html>
